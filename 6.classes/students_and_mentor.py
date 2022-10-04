@@ -41,10 +41,10 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
 
-best_student = Student('Evgeniy', 'Vakulenko', 'your_gender')
+best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
 
-best_lecturer = Lecturer('Ivan', 'Ivanov')
+best_lecturer = Lecturer('Some', 'Buddy')
 best_lecturer.courses_attached += ['Python']
 
 cool_mentor = Reviewer('Some', 'Buddy')
