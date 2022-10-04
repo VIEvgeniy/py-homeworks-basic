@@ -41,6 +41,8 @@ class Student:
             return self.average_grades() == student.average_grades()
         else:
             return 'Ошибка'
+    def __float__(self):
+        return self.average_grades()
 
 class Mentor:
     def __init__(self, name, surname):
@@ -66,15 +68,17 @@ class Lecturer(Mentor):
         return res
     def __lt__(self, lecturer):
         if isinstance(lecturer, Lecturer):
-            return self.average_grades() < lecturer.average_grades()
+            return float(self) < float(lecturer)
         else:
             return 'Ошибка'
         pass
     def __eq__(self, lecturer):
         if isinstance(lecturer, Lecturer):
-            return self.average_grades() == lecturer.average_grades()
+            return float(self) == float(lecturer)
         else:
             return 'Ошибка'
+    def __float__(self):
+        return self.average_grades()
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -86,26 +90,67 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
+def average_grades_students(students):
+    res = sum([float(student) for student in students]) / len(students)
+    return res
 
-some_student = Student('Ruoy', 'Eman', 'your_gender')
-some_student.courses_in_progress += ['Python']
-some_student.courses_in_progress += ['Git']
-some_student.finished_courses += ['Введение в программирование']
+def average_grades_lecturers(lecturers):
+    res = sum([float(lecturer) for lecturer in lecturers]) / len(lecturers)
+    return res
 
-some_lecturer = Lecturer('Some', 'Buddy')
-some_lecturer.courses_attached += ['Python']
+first_student = Student('Ruoy', 'Eman', 'your_gender')
+first_student.courses_in_progress += ['Python']
+first_student.courses_in_progress += ['Git']
+first_student.finished_courses += ['Введение в программирование']
+
+second_student = Student('Evgeniy', 'Vakulenko', 'male')
+second_student.courses_in_progress += ['Python']
+second_student.courses_in_progress += ['Git']
+second_student.finished_courses += ['Введение в программирование']
+
+first_lecturer = Lecturer('Some', 'Buddy')
+first_lecturer.courses_attached += ['Python']
+
+second_lecturer = Lecturer('Jupalo', 'Marjupalo')
+second_lecturer.courses_attached += ['Git']
 
 some_reviewer = Reviewer('Some', 'Buddy')
 some_reviewer.courses_attached += ['Python']
 some_reviewer.courses_attached += ['Git']
 
-some_reviewer.rate_hw(some_student, 'Python', 10)
-some_reviewer.rate_hw(some_student, 'Python', 10)
-some_reviewer.rate_hw(some_student, 'Python', 9)
-some_reviewer.rate_hw(some_student, 'Git', 10)
+some_reviewer.rate_hw(first_student, 'Python', 9)
+some_reviewer.rate_hw(first_student, 'Python', 10)
+some_reviewer.rate_hw(first_student, 'Python', 9)
+some_reviewer.rate_hw(first_student, 'Git', 10)
 
-some_student.rate_hw(some_lecturer, 'Python', 10)
+some_reviewer.rate_hw(second_student, 'Python', 8)
+some_reviewer.rate_hw(second_student, 'Python', 4)
+some_reviewer.rate_hw(second_student, 'Python', 9)
+some_reviewer.rate_hw(second_student, 'Git', 10)
+
+first_student.rate_hw(first_lecturer, 'Python', 10)
+first_student.rate_hw(second_lecturer, 'Git', 10)
+
+second_student.rate_hw(first_lecturer, 'Python', 8)
+second_student.rate_hw(second_lecturer, 'Git', 6)
 
 print(some_reviewer)
-print(some_lecturer)
-print(some_student)
+print()
+print(first_lecturer)
+print()
+print(second_lecturer)
+print()
+print(first_student)
+print()
+print(second_student)
+print()
+
+if first_lecturer > second_lecturer:
+    best_lecturer = first_lecturer
+else:
+    best_lecturer = second_lecturer
+print(f'Лучший лектор:\n{best_lecturer}')
+print()
+print(f'Средняя оценка за домашние задания студентов: {average_grades_students([first_student, second_student])}')
+print()
+print(f'Средняя оценка за лекции всех лекторов: {average_grades_lecturers([first_lecturer, second_lecturer])}')
