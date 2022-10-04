@@ -30,6 +30,17 @@ class Student:
               ', '.join(self.finished_courses)
         return res
 
+    def __lt__(self, student):
+        if isinstance(student, Student):
+            return self.average_grades() < student.average_grades()
+        else:
+            return 'Ошибка'
+
+    def __eq__(self, student):
+        if isinstance(student, Student):
+            return self.average_grades() == student.average_grades()
+        else:
+            return 'Ошибка'
 
 class Mentor:
     def __init__(self, name, surname):
@@ -53,7 +64,17 @@ class Lecturer(Mentor):
     def __str__(self):
         res = super().__str__() + f'\nСредняя оценка за лекции: {self.average_grades()}'
         return res
-
+    def __lt__(self, lecturer):
+        if isinstance(lecturer, Lecturer):
+            return self.average_grades() < lecturer.average_grades()
+        else:
+            return 'Ошибка'
+        pass
+    def __eq__(self, lecturer):
+        if isinstance(lecturer, Lecturer):
+            return self.average_grades() == lecturer.average_grades()
+        else:
+            return 'Ошибка'
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
