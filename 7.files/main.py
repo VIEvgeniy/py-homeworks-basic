@@ -5,14 +5,14 @@ def nice_print(*args, tab=0, quot=False):
             if val:
                 tab += 1
                 for el in val:
-                    if isinstance(val[el], list):
+                    if isinstance(val[el], list) or isinstance(val[el], dict):
                         nice_print('\n\t' * tab)
                     nice_print(el, quot=True)
                     nice_print(': ')
                     nice_print(val[el], quot=True)
                     nice_print(',')
                 nice_print('\b')
-                if isinstance(val[el], list):
+                if isinstance(val[el], list) or isinstance(val[el], dict):
                     nice_print('\n')
                 tab -= 1
             nice_print('}', tab=tab)
@@ -53,6 +53,21 @@ def read_dish(file):
     return res
 
 
+def get_shop_list_by_dishes(dishes, person_count):
+    res = {}
+    for dish in dishes:
+        if dish in cook_book:
+            for ingridient in cook_book[dish]:
+                if ingridient['ingredient_name'] in res:
+                    res[ingridient['ingredient_name']]['quantity'] += ingridient['quantity'] * person_count
+                else:
+                    res[ingridient['ingredient_name']] = {'measure': ingridient['measure'], 'quantity': ingridient['quantity'] * person_count}
+        else:
+            print(f'Ошибка нет рецепта для блюда {ingridient}')
+            return
+    return res
+
+
 cook_book = {}
 
 with open('file.txt', 'r') as file:
@@ -62,4 +77,8 @@ with open('file.txt', 'r') as file:
         dish = read_dish(file)
     file.close()
 
-nice_print('cook_book = ', cook_book)
+nice_print('cook_book = ', cook_book, '\n')
+
+shop_list = get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+nice_print('shop_list = ', shop_list)
