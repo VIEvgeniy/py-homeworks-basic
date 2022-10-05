@@ -32,7 +32,7 @@ def nice_print(*args, tab=0, quot=False):
             print(val, sep='', end="")
 
 
-def read_ingredient_name(file):
+def read_dish(file):
     dish_name = file.readline()
     if not dish_name:
         return
@@ -55,10 +55,10 @@ def read_ingredient_name(file):
 cook_book = {}
 
 with open('file.txt', 'r') as file:
-    dish = read_ingredient_name(file)
+    dish = read_dish(file)
     while dish:
         cook_book.update(dish)
-        dish = read_ingredient_name(file)
+        dish = read_dish(file)
     file.close()
 
 nice_print('cook_book = ', cook_book)
