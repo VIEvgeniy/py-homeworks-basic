@@ -16,4 +16,3 @@ with open(output_file_name, 'w') as output_file:
             if input_file != input_files[-1]:
                 output_file.write('\n')
 
-print(input_files)
