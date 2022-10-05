@@ -1,27 +1,27 @@
-def var_print(*args, tab=0, quot=False):
+def nice_print(*args, tab=0, quot=False):
     for val in args:
         if isinstance(val, dict):
-            var_print('\t'*tab, '{', tab=tab)
+            nice_print('\t' * tab, '{', tab=tab)
             tab += 1
             for el in val:
-                if isinstance(val[el],list):
-                    var_print('\n\t'*tab)
-                var_print(el, quot=True)
-                var_print(': ')
-                var_print(val[el], quot=True)
-                var_print(',')
-            var_print('\b')
-            if isinstance(val[el],list):
-                var_print('\n')
+                if isinstance(val[el], list):
+                    nice_print('\n\t' * tab)
+                nice_print(el, quot=True)
+                nice_print(': ')
+                nice_print(val[el], quot=True)
+                nice_print(',')
+            nice_print('\b')
+            if isinstance(val[el], list):
+                nice_print('\n')
             tab -= 1
-            var_print('}', tab=tab)
+            nice_print('}', tab=tab)
         elif isinstance(val, list):
-            var_print('\t' * tab, '[\n', tab=tab)
+            nice_print('\t' * tab, '[\n', tab=tab)
             tab += 1
             for el in val[:-1]:
-                var_print('\t' * tab, el, ',\n', tab=tab)
-            var_print('\t' * tab, val[-1], '\n', tab=tab)
-            var_print('\t' * tab, ']')
+                nice_print('\t' * tab, el, ',\n', tab=tab)
+            nice_print('\t' * tab, val[-1], '\n', tab=tab)
+            nice_print('\t' * tab, ']')
         elif isinstance(val, str):
             if quot:
                 print("'", sep="", end="")
@@ -61,4 +61,4 @@ with open('file.txt', 'r') as file:
         dish = read_ingredient_name(file)
     file.close()
 
-var_print('cook_book = ', cook_book)
+nice_print('cook_book = ', cook_book)
