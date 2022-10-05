@@ -60,6 +60,5 @@ with open('file.txt', 'r') as file:
     while dish:
         cook_book.update(dish)
         dish = read_dish(file)
-    file.close()
 
 nice_print('cook_book = ', cook_book)
