@@ -8,7 +8,7 @@ def test_request():
     response = requests.get(url)
 
     if response.status_code == 200:
-        print("OK")
+        print("Ответ сервера OK")
         res = response.json()
         hero_intelligence = {f'{el["name"]}': f'{el["powerstats"]["intelligence"]}' for el in res}
         my_hero_intelligence = {f'{hero}': f'{hero_intelligence[hero]}' for hero in my_hero}
