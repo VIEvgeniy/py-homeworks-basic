@@ -15,5 +15,5 @@ python_quests = []
 for q in quests:
     if 'python' in q['tags']:
         python_quests.append(q)
-
-print('\n'.join(f'{quest["title"]}' for  quest in python_quests))
+# print(python_quests)
+print('\n'.join(f'{quest["title"]} - {quest["link"]}' for quest in python_quests))
