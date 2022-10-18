@@ -42,7 +42,7 @@ class YaDisk:
         requests.put(url=self._get_api_url(), headers=self._get_headers(), params=params)
 
 
-TOKEN = 'y0_AgAAAAACXMR-AADLWwAAAADRksHhjUlzKnB1TxKLv4XpEKnTULadczg'
+TOKEN = ''
 FILELIST = ['test1.txt', 'test2.txt']
 DIR = 'test'
 
