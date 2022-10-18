@@ -9,7 +9,7 @@ params = {
     'fromdate': date
 }
 res = requests.get(url=url, params=params).json()
-quests = list(q for q in res['items'])
+quests = res['items']
 python_quests = []
 
 for q in quests:
